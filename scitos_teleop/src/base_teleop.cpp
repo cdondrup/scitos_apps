@@ -11,16 +11,16 @@ geometry_msgs::Twist t;
 
 void controlCallback(const sensor_msgs::Joy::ConstPtr& msg)
 {
-	if (msg->axes[1] != 0.0 || msg->axes[0] != 0.0) integrateMode = false;
-	if (msg->axes[6] != 0.0 || msg->axes[7] != 0.0) integrateMode = true;
-	if (integrateMode){
-		t.linear.x += 0.1*l_scale_ * msg->axes[7];
-		t.angular.z = a_scale_ * msg->axes[6];
-	}else{
-		t.linear.x = 0.9*t.linear.x + 0.1*l_scale_ * msg->axes[1];
-		t.angular.z = 0.5*t.angular.z + 0.5*a_scale_ * msg->axes[0];
-	}
-	if (t.linear.x > l_scale_) t.linear.x = l_scale_; 
+//	if (msg->axes[1] != 0.0 || msg->axes[0] != 0.0) integrateMode = false;
+//	if (msg->axes[6] != 0.0 || msg->axes[7] != 0.0) integrateMode = true;
+//	if (integrateMode){
+//		t.linear.x += 0.1*l_scale_ * msg->axes[7];
+//		t.angular.z = a_scale_ * msg->axes[6];
+//	}else{
+//		t.linear.x = 0.9*t.linear.x + 0.1*l_scale_ * msg->axes[1];
+//		t.angular.z = 0.5*t.angular.z + 0.5*a_scale_ * msg->axes[0];
+//	}
+    if (t.linear.x > 0) t.linear.x = 0.55;
 	if (t.linear.x < -l_scale_) t.linear.x = -l_scale_; 
 	if(msg->header.frame_id == "stop") {
 		t.linear.x = 0.0;
